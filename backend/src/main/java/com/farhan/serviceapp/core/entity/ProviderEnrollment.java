@@ -1,5 +1,5 @@
 // 📁 src/main/java/com/farhan/serviceapp/common/entity/ProviderEnrollment.java
-package com.farhan.serviceapp.common.entity;
+package com.farhan.serviceapp.core.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

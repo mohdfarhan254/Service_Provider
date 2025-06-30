@@ -5,9 +5,9 @@ package com.farhan.serviceapp.consumer.controller;
 import com.farhan.serviceapp.consumer.dto.ProviderFeedbackRequest;
 import com.farhan.serviceapp.consumer.dto.ProviderInfoDTO;
 import com.farhan.serviceapp.consumer.dto.ServiceResponseDTO;
-import com.farhan.serviceapp.common.entity.ProviderFeedback;
-import com.farhan.serviceapp.common.entity.User;
 import com.farhan.serviceapp.consumer.service.ConsumerService;
+import com.farhan.serviceapp.core.entity.ProviderFeedback;
+import com.farhan.serviceapp.core.entity.User;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

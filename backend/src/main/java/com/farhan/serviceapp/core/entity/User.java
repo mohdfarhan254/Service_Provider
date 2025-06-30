@@ -1,10 +1,13 @@
 // 📁 src/main/java/com/farhan/serviceapp/common/entity/User.java
-package com.farhan.serviceapp.common.entity;
+package com.farhan.serviceapp.core.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.farhan.serviceapp.core.enums.AvailabilityStatus;
+import com.farhan.serviceapp.core.enums.Role;
 
 import java.util.Collection;
 import java.util.List;

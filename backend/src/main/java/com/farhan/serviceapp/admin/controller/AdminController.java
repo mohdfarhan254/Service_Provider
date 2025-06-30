@@ -2,9 +2,10 @@
 
 package com.farhan.serviceapp.admin.controller;
 
-import com.farhan.serviceapp.common.entity.ServiceCategory;
-import com.farhan.serviceapp.common.entity.User;
 import com.farhan.serviceapp.admin.service.AdminService;
+import com.farhan.serviceapp.core.entity.ServiceCategory;
+import com.farhan.serviceapp.core.entity.User;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

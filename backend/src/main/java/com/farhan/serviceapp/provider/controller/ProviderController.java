@@ -1,10 +1,10 @@
 // 📁 src/main/java/com/farhan/serviceapp/provider/controller/ProviderController.java
 
-package com.farhan.serviceapp.provider.service;
+package com.farhan.serviceapp.provider.controller;
 
-import com.farhan.serviceapp.common.entity.User;
 import com.farhan.serviceapp.provider.dto.EnrollServiceRequest;
-import com.farhan.serviceapp.provider.controller.ProviderService;
+import com.farhan.serviceapp.provider.service.ProviderService;
+import com.farhan.serviceapp.core.entity.User;
 import com.farhan.serviceapp.provider.dto.AvailabilityUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 package com.farhan.serviceapp.auth.dto;
 
-import com.farhan.serviceapp.common.entity.Role;
+import com.farhan.serviceapp.core.enums.Role;
 
 import lombok.Data;
 

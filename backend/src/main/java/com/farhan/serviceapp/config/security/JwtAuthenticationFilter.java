@@ -1,4 +1,4 @@
-package com.farhan.serviceapp.common.security;
+package com.farhan.serviceapp.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -7,7 +7,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.farhan.serviceapp.common.repository.UserRepository;
+import com.farhan.serviceapp.auth.repository.authRepository;
+import com.farhan.serviceapp.shared.service.JwtService;
 
 import org.springframework.lang.NonNull;
 
@@ -22,7 +23,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final UserRepository userRepository;
+    private final authRepository userRepository;
 
     @Override
     protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {

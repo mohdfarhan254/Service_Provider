@@ -1,4 +1,4 @@
-package com.farhan.serviceapp.common.security;
+package com.farhan.serviceapp.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

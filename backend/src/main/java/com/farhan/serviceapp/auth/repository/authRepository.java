@@ -1,14 +1,14 @@
-package com.farhan.serviceapp.common.repository;
+package com.farhan.serviceapp.auth.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.farhan.serviceapp.common.entity.Role;
-import com.farhan.serviceapp.common.entity.User;
+import com.farhan.serviceapp.core.entity.User;
+import com.farhan.serviceapp.core.enums.Role;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface authRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
 
     boolean existsByEmail(String email);

@@ -1,16 +1,16 @@
-package com.farhan.serviceapp.common.security;
+package com.farhan.serviceapp.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 
-import com.farhan.serviceapp.common.repository.UserRepository;
+import com.farhan.serviceapp.auth.repository.authRepository;
 
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final authRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

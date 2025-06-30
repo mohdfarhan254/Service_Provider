@@ -3,11 +3,14 @@
 package com.farhan.serviceapp.auth.service.impl;
 
 import com.farhan.serviceapp.auth.dto.*;
+import com.farhan.serviceapp.auth.repository.authRepository;
 import com.farhan.serviceapp.auth.service.AuthService;
-import com.farhan.serviceapp.common.entity.*;
-import com.farhan.serviceapp.common.repository.UserRepository;
-import com.farhan.serviceapp.common.security.JwtService;
-import com.farhan.serviceapp.common.service.EmailService;
+import com.farhan.serviceapp.core.entity.User;
+import com.farhan.serviceapp.core.enums.AvailabilityStatus;
+import com.farhan.serviceapp.core.enums.Role;
+import com.farhan.serviceapp.shared.service.EmailService;
+import com.farhan.serviceapp.shared.service.JwtService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +23,7 @@ import java.security.SecureRandom;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private final UserRepository userRepository;
+    private final authRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authManager;

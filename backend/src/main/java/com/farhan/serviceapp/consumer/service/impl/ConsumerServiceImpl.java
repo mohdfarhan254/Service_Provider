@@ -2,12 +2,18 @@
 
 package com.farhan.serviceapp.consumer.service.impl;
 
-import com.farhan.serviceapp.common.entity.*;
-import com.farhan.serviceapp.common.repository.*;
+import com.farhan.serviceapp.admin.repository.adminRepository;
+import com.farhan.serviceapp.auth.repository.authRepository;
 import com.farhan.serviceapp.consumer.dto.ProviderFeedbackRequest;
 import com.farhan.serviceapp.consumer.dto.ProviderInfoDTO;
 import com.farhan.serviceapp.consumer.dto.ServiceResponseDTO;
+import com.farhan.serviceapp.consumer.repository.consumerRepository;
 import com.farhan.serviceapp.consumer.service.ConsumerService;
+import com.farhan.serviceapp.core.entity.ProviderEnrollment;
+import com.farhan.serviceapp.core.entity.ProviderFeedback;
+import com.farhan.serviceapp.core.entity.User;
+import com.farhan.serviceapp.core.enums.AvailabilityStatus;
+import com.farhan.serviceapp.provider.repository.providerRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,10 +26,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ConsumerServiceImpl implements ConsumerService {
 
-    private final ServiceCategoryRepository serviceCategoryRepository;
-    private final EnrollmentRepository enrollmentRepository;
-    private final UserRepository userRepository;
-    private final ProviderFeedbackRepository feedbackRepository;
+    private final adminRepository serviceCategoryRepository;
+    private final providerRepository enrollmentRepository;
+    private final authRepository userRepository;
+    private final consumerRepository feedbackRepository;
 
     @Override
     public List<ServiceResponseDTO> getAllServices() {

@@ -2,10 +2,10 @@
 
 package com.farhan.serviceapp.admin.service;
 
-import com.farhan.serviceapp.common.entity.ServiceCategory;
-import com.farhan.serviceapp.common.entity.User;
-
 import java.util.List;
+
+import com.farhan.serviceapp.core.entity.ServiceCategory;
+import com.farhan.serviceapp.core.entity.User;
 
 public interface AdminService {
 

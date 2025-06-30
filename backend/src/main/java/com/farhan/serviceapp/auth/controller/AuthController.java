@@ -4,7 +4,8 @@ package com.farhan.serviceapp.auth.controller;
 
 import com.farhan.serviceapp.auth.dto.*;
 import com.farhan.serviceapp.auth.service.AuthService;
-import com.farhan.serviceapp.common.service.EmailService;
+import com.farhan.serviceapp.shared.service.EmailService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

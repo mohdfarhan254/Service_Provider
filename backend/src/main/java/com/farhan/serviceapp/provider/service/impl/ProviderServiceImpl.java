@@ -2,10 +2,17 @@
 
 package com.farhan.serviceapp.provider.service.impl;
 
-import com.farhan.serviceapp.common.entity.*;
-import com.farhan.serviceapp.common.repository.*;
-import com.farhan.serviceapp.provider.controller.ProviderService;
+import com.farhan.serviceapp.admin.repository.adminRepository;
+import com.farhan.serviceapp.auth.repository.authRepository;
+import com.farhan.serviceapp.core.entity.ProviderEnrollment;
+import com.farhan.serviceapp.core.entity.ServiceCategory;
+import com.farhan.serviceapp.core.entity.User;
+import com.farhan.serviceapp.core.enums.AvailabilityStatus;
+import com.farhan.serviceapp.core.enums.Role;
 import com.farhan.serviceapp.provider.dto.EnrollServiceRequest;
+import com.farhan.serviceapp.provider.repository.providerRepository;
+import com.farhan.serviceapp.provider.service.ProviderService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +20,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProviderServiceImpl implements ProviderService {
 
-    private final ServiceCategoryRepository serviceCategoryRepository;
-    private final EnrollmentRepository enrollmentRepository;
-    private final UserRepository userRepository;
+    private final adminRepository serviceCategoryRepository;
+    private final providerRepository enrollmentRepository;
+    private final authRepository userRepository;
 
     @Override
     public void enrollProvider(User provider, EnrollServiceRequest req) {
