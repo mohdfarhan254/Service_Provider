@@ -2,12 +2,15 @@
 
 package com.farhan.serviceapp.provider.service;
 
-import com.farhan.serviceapp.core.entity.User;
-import com.farhan.serviceapp.core.enums.AvailabilityStatus;
-import com.farhan.serviceapp.provider.dto.EnrollServiceRequest;
+import com.farhan.serviceapp.core.entity.User; // Represents the authenticated user (provider)
+import com.farhan.serviceapp.core.enums.AvailabilityStatus; // Enum for availability status (e.g., AVAILABLE, UNAVAILABLE)
+import com.farhan.serviceapp.provider.dto.EnrollServiceRequest; // DTO for enrollment request
 
-public interface ProviderService {
-    void enrollProvider(User provider, EnrollServiceRequest req);
+public interface ProviderService { // Service interface defining provider-related operations
 
-    void updateAvailability(Long providerId, AvailabilityStatus status);
+    void enrollProvider(User provider, EnrollServiceRequest req); 
+    // Method to enroll a provider to a service using provided request data
+
+    void updateAvailability(Long providerId, AvailabilityStatus status); 
+    // Method to update a provider's availability status by provider ID
 }
