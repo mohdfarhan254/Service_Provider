@@ -6,8 +6,9 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   return (
+     //you are passing a prop called role with the value "Admin" to the DashboardNavbar component.
     <div className="min-h-screen bg-gray-100">
-      <DashboardNavbar role="Admin" />
+      <DashboardNavbar role="Admin" /> 
 
       <div className="p-6 flex items-center justify-center">
         <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md text-center">

@@ -15,7 +15,8 @@ const ForgotPassword = () => {
     try {
       await requestOtp(email);
       alert("OTP sent to your email.");
-      navigate('/verify-otp', { state: { email } });
+      navigate('/verify-otp', { state: { email } });// This is an object passed as the second argument to navigate
+                                                   // which is an object with an email property.
     } catch (err) {
       const msg = err.response?.data || 'Failed to send OTP';
       setError(msg);

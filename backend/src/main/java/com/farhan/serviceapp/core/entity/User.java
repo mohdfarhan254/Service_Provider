@@ -45,6 +45,8 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(() -> "ROLE_" + role.name());
     }
+//Encapsulation and Data Hiding:
+// Controlled Access and Data Validation:
 
     @Override
     public String getUsername() {

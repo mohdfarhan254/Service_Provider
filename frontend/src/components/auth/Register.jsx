@@ -1,6 +1,6 @@
 // 📄 src/components/auth/Register.jsx
 
-import React, { useState } from 'react';
+import React, { useState } from 'react';// adds a state variable to functional components
 import { register } from '../../services/authService';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,7 +17,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });// spread operator makes shalow copy to copy the values efficiently
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ const Register = () => {
       alert('Registered successfully');
       navigate('/login');
     } catch (err) {
-      setError(err.response?.data?.error || 'Registration failed');
+      setError(err.response?.data?.error || 'Registration failed');// ? chaning operator safe access of nested values
     }
   };
 

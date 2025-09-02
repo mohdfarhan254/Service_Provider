@@ -5,13 +5,14 @@ import { resetPassword } from '../../services/authService';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const ResetPassword = () => {
-  const location = useLocation();
+  const location = useLocation();//Accessing Current URL Information:
   const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState('');
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
-
+// useEffect hook to perform actions or side effects 
+// whenever the URL or specific parts of the location object change.
   useEffect(() => {
     if (location.state?.email && location.state?.otp) {
       setEmail(location.state.email);

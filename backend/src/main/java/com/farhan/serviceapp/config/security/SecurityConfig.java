@@ -24,7 +24,7 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableMethodSecurity  // 👈 This is MISSING
+@EnableMethodSecurity // 👈 This is MISSING
 
 public class SecurityConfig {
 
@@ -34,46 +34,45 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.disable())
-    .authorizeHttpRequests(auth -> auth
-    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-    .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-    .requestMatchers(
-        "/api/auth/register",
-        "/api/auth/request-password-reset-otp",
-        "/api/auth/verify-otp",
-        "/api/auth/reset-password",
-        "/api/auth/test-mail"
-    ).permitAll()
-    .requestMatchers("/api/auth/**").permitAll()
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                        .requestMatchers(
+                                "/api/auth/register",
+                                "/api/auth/request-password-reset-otp",
+                                "/api/auth/verify-otp",
+                                "/api/auth/reset-password",
+                                "/api/auth/test-mail")
+                        .permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
 
-    // ✅ Role Based Authority Fix
-    .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
-    .requestMatchers("/api/provider/**").hasAuthority("ROLE_PROVIDER")
-    .requestMatchers("/api/consumer/**").hasAuthority("ROLE_CONSUMER")
+                        // ✅ Role Based Authority Fix
+                        .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/api/provider/**").hasAuthority("ROLE_PROVIDER")
+                        .requestMatchers("/api/consumer/**").hasAuthority("ROLE_CONSUMER")
 
-    .anyRequest().authenticated()
-)
+                        .anyRequest().authenticated())
 
-            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authenticationProvider(authenticationProvider())
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-            .build();
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
-@Bean
-public CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration config = new CorsConfiguration();
-    config.setAllowedOrigins(List.of("http://localhost:3000"));
-    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")); // ✅ Added PATCH
-    config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-    config.setAllowCredentials(true);
 
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", config);
-    return source;
-}
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:3000"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")); // ✅ Added PATCH
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        config.setAllowCredentials(true);
 
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -93,3 +92,16 @@ public CorsConfigurationSource corsConfigurationSource() {
         return config.getAuthenticationManager();
     }
 }
+/*
+.authenticationProvider(authenticationProvider())
+This tells Spring Security:
+“When someone tries to log in, use this provider to check credentials.”
+👉 Internally, when Spring Security receives a login request (e.g., /api/auth/login), it:
+Extracts username & password (via UsernamePasswordAuthenticationFilter).
+Passes them to the AuthenticationManager.
+The manager loops through available AuthenticationProviders.
+Your DaoAuthenticationProvider kicks in → calls userDetailsService.loadUserByUsername() and verifies the password with your PasswordEncoder.
+So:
+You don’t call it manually.
+Spring Security calls it during login flow.
+*/

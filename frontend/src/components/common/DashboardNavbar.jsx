@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+// So, role = 'Dashboard' is just a default value for the prop 
+// to make sure the component doesn’t break when no role is passed.
 const DashboardNavbar = ({ role = 'Dashboard' }) => {
   const navigate = useNavigate();
 

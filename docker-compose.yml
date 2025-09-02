@@ -38,3 +38,179 @@ services:
 
 volumes:
   mysql_data:
+
+
+# 📄 File Breakdown
+# version: '3.8'
+
+
+# Defines the Docker Compose file format version (3.8 = stable & modern).
+
+# 🔹 Services Section
+
+# Everything under services: describes a container you want to run.
+# Here you have 3 services: backend, frontend, and mysql.
+
+# 1️⃣ Backend (Spring Boot)
+#   backend:
+
+
+# Name of the service = backend.
+
+# Other services can reach it via http://backend:8080.
+
+#     build:
+#       context: ./backend
+
+
+# Build a Docker image using the Dockerfile inside the ./backend folder.
+
+#     container_name: serviceapp-backend
+
+
+# Gives the container a fixed name (serviceapp-backend) instead of a random one.
+
+#     ports:
+#       - "8080:8080"
+
+
+# Maps host port 8080 → container port 8080.
+
+# So you can open http://localhost:8080 on your machine and reach the backend.
+
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/serviceapp?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+#       SPRING_DATASOURCE_USERNAME: root
+#       SPRING_DATASOURCE_PASSWORD: 17054739Ze@
+#       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+
+# Sets environment variables that Spring Boot reads from application.properties.
+
+# Tells Spring how to connect to the mysql service:
+
+# URL: connect to MySQL at mysql:3306 (note: service name, not localhost).
+
+# Username: root
+
+# Password: 17054739Ze@
+
+# JPA auto DDL update → Hibernate will update DB schema automatically.
+
+#     depends_on:
+#       - mysql
+
+
+# Ensures MySQL container starts before backend.
+
+# (But note: doesn’t wait until MySQL is fully ready — just starts it first).
+
+# 2️⃣ Frontend (React + Nginx)
+#   frontend:
+
+
+# Name of the service = frontend.
+
+# Other services can reach it via http://frontend:80.
+
+#     build:
+#       context: ./frontend
+
+
+# Build the Docker image from the ./frontend folder.
+
+#     container_name: serviceapp-frontend
+
+
+# Name this container serviceapp-frontend.
+
+#     ports:
+#       - "3000:80"
+
+
+# Maps host port 3000 → container port 80.
+
+# So your React app will be available at http://localhost:3000.
+
+#     depends_on:
+#       - backend
+
+
+# Starts backend before frontend.
+
+# 3️⃣ MySQL (Database)
+#   mysql:
+
+
+# Service name = mysql.
+
+# Other services (backend) can reach it via mysql:3306.
+
+#     image: mysql:8.0
+
+
+# Uses the official MySQL 8.0 image from Docker Hub.
+
+#     container_name: serviceapp-mysql
+
+
+# Fixed name for this container.
+
+#     restart: always
+
+
+# Ensures container auto-restarts if it crashes or server reboots.
+
+#     environment:
+#       MYSQL_ROOT_PASSWORD: 17054739Ze@
+#       MYSQL_DATABASE: serviceapp
+
+
+# Configures MySQL:
+
+# Root password = 17054739Ze@
+
+# Creates a database called serviceapp on startup.
+
+#     ports:
+#       - "3306:3306"
+
+
+# Maps host port 3306 → container port 3306.
+
+# Lets you connect with a local MySQL client (localhost:3306).
+
+#     volumes:
+#       - mysql_data:/var/lib/mysql
+
+
+# Mounts a named volume (mysql_data) at MySQL’s data directory.
+
+# Ensures database data persists even if the container is deleted.
+
+# 🔹 Volumes Section
+# volumes:
+#   mysql_data:
+
+
+# Defines a persistent volume named mysql_data.
+
+# Stores MySQL database files outside the container lifecycle.
+
+# 🚀 How It All Works Together
+
+# Run docker-compose up --build.
+
+# Compose builds frontend & backend images, pulls mysql:8.0 image.
+
+# Launches 3 containers:
+
+# MySQL on localhost:3306
+
+# Spring Boot backend on localhost:8080
+
+# React frontend on localhost:3000
+
+# Backend talks to MySQL via mysql:3306.
+
+# Frontend can call backend via http://backend:8080 inside the Docker network, or http://localhost:8080 from your browser.

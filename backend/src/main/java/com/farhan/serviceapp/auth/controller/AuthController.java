@@ -19,7 +19,8 @@ public class AuthController {
     private final AuthService authService;
     private final EmailService emailService;
 
-    @PostMapping("/register")
+    @PostMapping("/register")// a controller method will return a complete HTTP response, 
+                             // allowing for customization of the status code, headers, and body
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
         try {
             AuthenticationResponse response = authService.register(request);
@@ -29,7 +30,12 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login")//Data Transfer Object (DTO) is a design pattern 
+                          //used to encapsulate and transfer data 
+                          // between different layers or components of an application. 
+                          // DTOs are simple Plain Old Java Objects (POJOs) 
+                          // that primarily contain data fields and their 
+                          // corresponding getter and setter methods, with minimal to no business logic. 
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok(authService.authenticate(request));
     }

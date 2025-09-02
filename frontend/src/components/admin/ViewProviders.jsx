@@ -18,7 +18,18 @@ const ViewProviders = () => {
     };
 
     fetchProviders();
-  }, []);
+  }, []);//Passing an empty array [] as the second argument to the useEffect hook in React 
+        // tells it to run the effect only once, after the initial render of the component. 
+       
+        // Why key={p.id}?
+        // React needs a unique key for each element inside a list (map) 
+        // so it can efficiently update the UI when the array changes.
+        // If you don’t give a key, React shows a warning.
+        // Here you’re using p.id (good practice ✅).
+
+        // If error is an empty string → nothing shows.
+        // If error has a message → the <p> block is rendered.
+        // So the user will see a red error box with your message.
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -32,7 +43,7 @@ const ViewProviders = () => {
             {error}
           </p>
         )}
-
+        
         <ul className="space-y-4">
           {providers.map((p) => (
             <li

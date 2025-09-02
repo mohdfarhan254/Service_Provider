@@ -31,64 +31,60 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // ✅ Only skip filtering for public auth endpoints
         return path.equals("/api/auth/login") ||
-               path.equals("/api/auth/register") ||
-               path.equals("/api/auth/request-password-reset-otp") ||
-               path.equals("/api/auth/verify-otp") ||
-               path.equals("/api/auth/reset-password") ||
-               path.equals("/api/auth/test-mail");
-    }
-@Override
-protected void doFilterInternal(
-        @NonNull HttpServletRequest request,
-        @NonNull HttpServletResponse response,
-        @NonNull FilterChain filterChain
-) throws ServletException, IOException {
-
-    final String authHeader = request.getHeader("Authorization");
-
-    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-        System.out.println("⛔ Missing or invalid Authorization header");
-        filterChain.doFilter(request, response);
-        return;
+                path.equals("/api/auth/register") ||
+                path.equals("/api/auth/request-password-reset-otp") ||
+                path.equals("/api/auth/verify-otp") ||
+                path.equals("/api/auth/reset-password") ||
+                path.equals("/api/auth/test-mail");
     }
 
-    final String jwt = authHeader.substring(7);
-    String userEmail = null;
+    @Override
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-    try {
-        userEmail = jwtService.extractUsername(jwt);
-        System.out.println("✅ Extracted email from token: " + userEmail);
-    } catch (Exception e) {
-        System.out.println("❌ Error extracting email from token: " + e.getMessage());
-        filterChain.doFilter(request, response);
-        return;
-    }
+        final String authHeader = request.getHeader("Authorization");
 
-    if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-        var user = userRepository.findByEmail(userEmail).orElse(null);
-
-        if (user == null) {
-            System.out.println("❌ User not found in DB for email: " + userEmail);
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("⛔ Missing or invalid Authorization header");
+            filterChain.doFilter(request, response);
+            return;
         }
 
-    if (user != null && jwtService.isTokenValid(jwt, userEmail)) {
-    var authorities = user.getAuthorities(); // ✅ use from UserDetails
-    var authToken = new UsernamePasswordAuthenticationToken(
-            user,
-            null,
-            authorities
-    );
+        final String jwt = authHeader.substring(7);
+        String userEmail = null;
 
-    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-    SecurityContextHolder.getContext().setAuthentication(authToken);
-    System.out.println("✅ Security context set for user: " + userEmail);
-}
- else {
-            System.out.println("❌ Token invalid for user: " + userEmail);
+        try {
+            userEmail = jwtService.extractUsername(jwt);
+            System.out.println("✅ Extracted email from token: " + userEmail);
+        } catch (Exception e) {
+            System.out.println("❌ Error extracting email from token: " + e.getMessage());
+            filterChain.doFilter(request, response);
+            return;
         }
-    }
 
-    filterChain.doFilter(request, response);
-}
+        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            var user = userRepository.findByEmail(userEmail).orElse(null);
+
+            if (user == null) {
+                System.out.println("❌ User not found in DB for email: " + userEmail);
+            }
+
+            if (user != null && jwtService.isTokenValid(jwt, userEmail)) {
+                var authorities = user.getAuthorities(); // ✅ use from UserDetails
+                var authToken = new UsernamePasswordAuthenticationToken(
+                        user,
+                        null,
+                        authorities);
+
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+                System.out.println("✅ Security context set for user: " + userEmail);
+            } else {
+                System.out.println("❌ Token invalid for user: " + userEmail);
+            }
+        }
+
+        filterChain.doFilter(request, response);
+    }
 
 }
