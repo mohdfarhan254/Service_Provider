@@ -1,6 +1,6 @@
 // 📁 src/services/authService.js
 import axios from 'axios';
-
+ 
 // ✅ Axios instance for authenticated APIs (adds token automatically)
 const API = axios.create({
   baseURL: 'http://localhost:8080/api/auth',
